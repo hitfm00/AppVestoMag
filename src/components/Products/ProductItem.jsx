@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './style.module.sass';
-import image from '../../assets/img/1709201802_3Bsnqnp5_ZQ-crop-720x1080.jpg';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
 import {
@@ -27,14 +26,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(19),
   },
 }));
-const ProductItem = () => {
+const ProductItem = (props) => {
+  const { name, price, img } = props;
   const classes = useStyles();
 
   return (
     <div className={s.product__item}>
-      <img src={image} alt="" className={s.product__img} />
-      <span className={s.product__title}>Name</span>
-      <span className={s.product__price}>4500 грн</span>
+      <img src={img} alt="" className={s.product__img} />
+      <span className={s.product__title}>{name}</span>
+      <span className={s.product__price}>{price}</span>
       <div className={s.product__buttons}>
         <LightTooltip TransitionComponent={Zoom} arrow title="View">
           <IconButton size="medium" aria-label="view">

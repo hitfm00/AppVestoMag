@@ -2,6 +2,7 @@ import React from 'react';
 import { Close } from '@material-ui/icons';
 
 import s from './style.module.sass';
+import BasketList from './BasketList';
 
 const BasketBlock = (props) => {
   const { toggle, setToggle } = props;
@@ -19,6 +20,7 @@ const BasketBlock = (props) => {
           <Close />
         </button>
       </div>
+      <BasketList />
     </div>
   );
 };
