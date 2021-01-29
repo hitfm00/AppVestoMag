@@ -1,0 +1,1 @@
+export const ADD_PRODUCT = 'POST/ADD_PRODUCT';

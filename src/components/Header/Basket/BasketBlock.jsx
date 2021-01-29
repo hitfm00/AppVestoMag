@@ -3,9 +3,11 @@ import { Close } from '@material-ui/icons';
 
 import s from './style.module.sass';
 import BasketList from './BasketList';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 const BasketBlock = (props) => {
-  const { toggle, setToggle } = props;
+  const { toggle, setToggle, data } = props;
   return (
     <div
       className={`${s.basket__block} ${toggle ? s.basket__blockActive : ''}`}
@@ -20,9 +22,13 @@ const BasketBlock = (props) => {
           <Close />
         </button>
       </div>
-      <BasketList />
+      <BasketList data={data} />
     </div>
   );
 };
 
-export default BasketBlock;
+const mapStateToProps = (state) => ({
+  data: state.products,
+});
+
+export default compose(connect(mapStateToProps, null))(BasketBlock);

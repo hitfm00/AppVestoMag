@@ -34,12 +34,13 @@ const ProductsList = () => {
     <Grid container justify="center" spacing={2}>
       {data.map((item) => {
         return (
-          <Grid item xs={4}>
+          <Grid key={item.id} item xs={4}>
             <Paper className={classes.paper}>
               <ProductItem
                 name={item.name}
                 price={item.price}
                 img={item.img_url}
+                item={item}
               />
             </Paper>
           </Grid>

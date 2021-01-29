@@ -9,6 +9,8 @@ import {
   withStyles,
   Zoom,
 } from '@material-ui/core';
+import { addProduct } from '../../redux/actions';
+import { connect } from 'react-redux';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
@@ -27,8 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const ProductItem = (props) => {
-  const { name, price, img } = props;
+  const { item, name, price, img } = props;
   const classes = useStyles();
+
+  const addToBasket = () => {
+    props.addProduct(item);
+  };
 
   return (
     <div className={s.product__item}>
@@ -42,7 +48,7 @@ const ProductItem = (props) => {
           </IconButton>
         </LightTooltip>
         <LightTooltip TransitionComponent={Zoom} arrow title="Add to basket">
-          <IconButton size="medium" aria-label="add">
+          <IconButton onClick={addToBasket} size="medium" aria-label="add">
             <ShoppingBasketOutlinedIcon className={classes.icon} />
           </IconButton>
         </LightTooltip>
@@ -51,4 +57,8 @@ const ProductItem = (props) => {
   );
 };
 
-export default ProductItem;
+const mapDispatchToProps = {
+  addProduct,
+};
+
+export default connect(null, mapDispatchToProps)(ProductItem);
