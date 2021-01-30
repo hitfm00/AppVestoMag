@@ -3,7 +3,14 @@
   justify-self: flex-end
   position: relative
 
+  &__wrapper
+    overflow-y: scroll
+    height: 100%
+
+
   &__block
+    display: flex
+    flex-direction: column
     position: fixed
     right: 0px
     top: 0
@@ -26,3 +33,21 @@
   &__header
     display: flex
     justify-content: space-between
+
+  &__img
+    width: 100%
+    height: 300px
+
+  &__buyButtonBlock
+    background: #fff
+    height: 120px
+    bottom: 20px
+    left: 0
+    right: 0
+    width: 100%
+
+  &__summary
+    display: flex
+    justify-content: space-between
+    margin-top: 10px
+    margin-bottom: 10px

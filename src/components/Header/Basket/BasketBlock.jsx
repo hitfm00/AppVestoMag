@@ -1,10 +1,11 @@
 import React from 'react';
 import { Close } from '@material-ui/icons';
-
+import BasketBuy from './BasketBuy';
 import s from './style.module.sass';
 import BasketList from './BasketList';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { Button } from '@material-ui/core';
 
 const BasketBlock = (props) => {
   const { toggle, setToggle, data } = props;
@@ -23,6 +24,7 @@ const BasketBlock = (props) => {
         </button>
       </div>
       <BasketList data={data} />
+      <BasketBuy data={data} />
     </div>
   );
 };

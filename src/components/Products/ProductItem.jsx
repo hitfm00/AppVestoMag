@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { addProduct } from '../../redux/actions';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
@@ -34,6 +35,7 @@ const ProductItem = (props) => {
 
   const addToBasket = () => {
     props.addProduct(item);
+    toast.success(`${name} product added to basket.`);
   };
 
   return (
