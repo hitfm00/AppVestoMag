@@ -17,14 +17,15 @@ const useStyles = makeStyles((theme) => ({
 const ProductsList = () => {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
       let url = 'http://167.172.186.154/api/products';
       let response = await fetch(url);
-      let data = await response.json();
-      setData(data);
-      console.log(data);
+      let datas = await response.json();
+      setData(datas);
+      setIsFetching(false);
     };
     getProducts();
   }, []);
@@ -32,20 +33,29 @@ const ProductsList = () => {
 
   return (
     <Grid container justify="center" spacing={2}>
-      {data.map((item) => {
-        return (
-          <Grid key={item.id} item xs={4}>
-            <Paper className={classes.paper}>
-              <ProductItem
-                name={item.name}
-                price={item.price}
-                img={item.img_url}
-                item={item}
-              />
-            </Paper>
-          </Grid>
-        );
-      })}
+      {isFetching ? (
+        <div class="lds-heart">
+          <div></div>
+        </div>
+      ) : (
+        <>
+          {data.map((item) => {
+            return (
+              <Grid key={item.id} item xs={4}>
+                <Paper className={classes.paper}>
+                  <ProductItem
+                    name={item.name}
+                    price={item.price}
+                    img={item.img_url}
+                    item={item}
+                    id={item.id}
+                  />
+                </Paper>
+              </Grid>
+            );
+          })}
+        </>
+      )}
     </Grid>
   );
 };

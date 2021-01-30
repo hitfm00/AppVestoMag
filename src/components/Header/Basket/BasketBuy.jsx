@@ -11,7 +11,7 @@ import { green, purple } from '@material-ui/core/colors';
 import Decimal from 'decimal.js';
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
+  width: {
     width: '98%',
   },
 }));
@@ -34,14 +34,14 @@ const BasketBuy = (props) => {
   return (
     <div className={s.basket__buyButtonBlock}>
       <div className={s.basket__summary}>
-        <span>Сумма заказа:</span>
-        <span>${summaryPrice}</span>
+        <span>Total:</span>
+        <span className={s.basket__totalPrice}>${summaryPrice}</span>
       </div>
       <Button
         variant="contained"
         color="primary"
         startIcon={<ShoppingBasketIcon />}
-        className={classes.margin}
+        className={classes.width}
       >
         Buy
       </Button>

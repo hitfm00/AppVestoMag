@@ -9,8 +9,16 @@ const BasketItem = (props) => {
     <Grid container justify="center">
       <Grid item xs={12}>
         <img src={imgUrl} alt="" className={s.basket__img} />
-        <div>{name}</div>
-        <div>{price}</div>
+        <div className={s.basket__infoBlock}>
+          <div className={s.basket__info}>
+            <span>Title:</span>
+            <span>{name}</span>
+          </div>
+          <div className={s.basket__info}>
+            <span>Price:</span>
+            <span>${price}</span>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );

@@ -14,7 +14,7 @@ const BasketBlock = (props) => {
       className={`${s.basket__block} ${toggle ? s.basket__blockActive : ''}`}
     >
       <div className={s.basket__header}>
-        <h3>Корзина</h3>
+        <h3>Cart</h3>
         <button
           onClick={() => {
             setToggle(false);

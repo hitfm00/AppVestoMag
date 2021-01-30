@@ -12,6 +12,7 @@ import {
 import { addProduct } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const ProductItem = (props) => {
-  const { item, name, price, img } = props;
+  const { item, name, price, img, id } = props;
   const classes = useStyles();
 
   const addToBasket = () => {
@@ -44,11 +45,13 @@ const ProductItem = (props) => {
       <span className={s.product__title}>{name}</span>
       <span className={s.product__price}>{price}</span>
       <div className={s.product__buttons}>
-        <LightTooltip TransitionComponent={Zoom} arrow title="View">
-          <IconButton size="medium" aria-label="view">
-            <VisibilityOutlinedIcon className={classes.icon} />
-          </IconButton>
-        </LightTooltip>
+        <NavLink to={`/product/${id}`}>
+          <LightTooltip TransitionComponent={Zoom} arrow title="View">
+            <IconButton size="medium" aria-label="view">
+              <VisibilityOutlinedIcon className={classes.icon} />
+            </IconButton>
+          </LightTooltip>
+        </NavLink>
         <LightTooltip TransitionComponent={Zoom} arrow title="Add to basket">
           <IconButton onClick={addToBasket} size="medium" aria-label="add">
             <ShoppingBasketOutlinedIcon className={classes.icon} />
