@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { compose } from 'redux';
@@ -11,23 +11,20 @@ import { API } from '../../api';
 
 const CartPage = (props) => {
   const [products, setProducts] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
   const { data } = props;
 
-  // API request for purchase
+  useEffect(() => {
+    setProducts(data);
+  }, []);
+
   const purchase = async () => {
     try {
-      alert(JSON.stringify({ products: data }, null, 2));
-      alert('К сожалению не получилось сделать POST запрос из-за CORS');
-
-      let url = 'http://167.172.186.154/api/purchase/';
-      let response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-          products: data,
-        }),
+      console.log(
+        'Ошибка: Method Illuminate Validation Validator::validateNumber does not exist.'
+      );
+      await API.purchase(products).then((response) => {
+        console.log(response);
       });
-      let datas = await response.json();
     } catch (e) {
       console.log(e);
     }

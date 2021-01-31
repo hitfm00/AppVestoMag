@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import fetch from 'isomorphic-fetch';
 
 import s from './style.module.sass';
+import { API } from '../../api';
 
 const LoginForm = () => {
   // Pass the useFormik() hook initial form values and a submit function that will
@@ -17,25 +18,9 @@ const LoginForm = () => {
     },
 
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      alert('К сожалению не получилось получить токен из-за CORS');
-      let response = fetch('http://167.172.186.154/token/request', {
-        method: 'post',
-        body: JSON.stringify(values),
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-      })
-        .then((response) => {
-          response.json();
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      API.tokenRequest(values).then((response) => {
+        console.log(response);
+      });
     },
   });
 

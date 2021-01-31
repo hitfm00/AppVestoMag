@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from './LoginForm';
+import { API } from '../../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,25 +52,6 @@ const LoginPage = () => {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
-  const submit = async (values, { setSubmitting }) => {
-    console.log(values);
-
-    try {
-      let url = '​http://167.172.186.154​/token/request/';
-      let response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-          values,
-        }),
-      });
-      let datas = await response.json();
-      setData(datas);
-      setIsFetching(false);
-      setSubmitting(false);
-    } catch (e) {
-      console.log(e);
-    }
-  };
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -82,7 +64,7 @@ const LoginPage = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <LoginForm onSubmit={submit} />
+          <LoginForm />
         </div>
       </Grid>
     </Grid>

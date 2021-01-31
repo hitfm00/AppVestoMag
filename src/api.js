@@ -10,7 +10,24 @@ export const API = {
   getProducts() {
     return instance.get('/api/products/');
   },
-  purchase(data) {
-    return instance.post('/api/purchase/', data);
+  purchase(datas) {
+    console.log(datas);
+    return instance.post(
+      '/api/purchase',
+      {
+        datas,
+      },
+      { withCredentials: false }
+    );
+  },
+  tokenRequest(values) {
+    return instance.post(
+      '/token/request',
+      {
+        username: values.username,
+        password: values.password,
+      },
+      { withCredentials: false }
+    );
   },
 };
