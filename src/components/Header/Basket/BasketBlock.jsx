@@ -6,9 +6,12 @@ import BasketList from './BasketList';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Button } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 const BasketBlock = (props) => {
   const { toggle, setToggle, data } = props;
+  console.log(data);
   return (
     <div
       className={`${s.basket__block} ${toggle ? s.basket__blockActive : ''}`}
@@ -23,8 +26,26 @@ const BasketBlock = (props) => {
           <Close />
         </button>
       </div>
-      <BasketList data={data} />
-      <BasketBuy data={data} />
+      {data.length === 0 ? (
+        <span className={s.basket__emptyText}>Cart is empty</span>
+      ) : (
+        <BasketList data={data} />
+      )}
+
+      {data.length === 0 ? (
+        <NavLink to="/">
+          <Button
+            onClick={() => setToggle(false)}
+            variant="contained"
+            color="primary"
+            startIcon={<ShoppingBasketIcon />}
+          >
+            Get products
+          </Button>
+        </NavLink>
+      ) : (
+        <BasketBuy setToggle={setToggle} data={data} />
+      )}
     </div>
   );
 };

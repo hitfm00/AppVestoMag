@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import LoginForm from './LoginForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,9 +46,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+const LoginPage = () => {
   const classes = useStyles();
+  const [data, setData] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
 
+  const submit = async (values, { setSubmitting }) => {
+    console.log(values);
+
+    try {
+      let url = '​http://167.172.186.154​/token/request/';
+      let response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          values,
+        }),
+      });
+      let datas = await response.json();
+      setData(datas);
+      setIsFetching(false);
+      setSubmitting(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -60,42 +82,11 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-          </form>
+          <LoginForm onSubmit={submit} />
         </div>
       </Grid>
     </Grid>
   );
-}
+};
+
+export default LoginPage;

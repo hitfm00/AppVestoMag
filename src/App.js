@@ -1,10 +1,10 @@
 import Routers from './pages/Routers/Routers';
-import logo from './logo.svg';
-import './App.css';
+import './App.sass';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header/Header';
 import { BrowserRouter } from 'react-router-dom';
+import { Container } from '@material-ui/core';
 
 function App() {
   return (
@@ -12,18 +12,20 @@ function App() {
       <div className="App">
         <Header />
         <main>
-          <Routers />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          <Container>
+            <Routers />
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </Container>
         </main>
       </div>
     </BrowserRouter>

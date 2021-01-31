@@ -12,7 +12,7 @@ const Navigation = () => {
         Home
       </NavLink>
       <NavLink className={s.navigation__link} to="/login">
-        About
+        Login
       </NavLink>
     </nav>
   );

@@ -9,7 +9,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import s from './style.module.sass';
+import { addProduct } from '../../redux/actions';
 import { Button } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
   table: {
@@ -17,11 +20,18 @@ const useStyles = makeStyles({
   },
 });
 
-const ProductPage = (match) => {
+const ProductPage = (props) => {
+  const { match, addProduct } = props;
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
   const classes = useStyles();
+
+  // Add to cart
+  const addToBasket = () => {
+    addProduct(data);
+    toast.success(`${data.name} product added to basket.`);
+  };
 
   function createData(name, category, price) {
     return { name, category, price };
@@ -31,21 +41,27 @@ const ProductPage = (match) => {
 
   useEffect(() => {
     const getInfoProductById = async () => {
-      let url = `http://167.172.186.154/api/products/${match.match.params.id}`;
-      let response = await fetch(url);
-      let datas = await response.json();
-      setData(datas);
-      setIsFetching(false);
+      try {
+        let url = `http://167.172.186.154/api/products/${match.params.id}`;
+        let response = await fetch(url);
+        let datas = await response.json();
+        setData(datas);
+        setIsFetching(false);
+      } catch (e) {
+        console.log(e);
+      }
     };
     getInfoProductById();
   }, []);
   return (
     <div className={s.wrapper}>
-      <Button variant="contained" color="primary" className={s.backButton}>
-        <NavLink to="/">Back to products</NavLink>
-      </Button>
+      <NavLink to="/">
+        <Button variant="contained" color="primary" className={s.backButton}>
+          Back to products
+        </Button>
+      </NavLink>
       {isFetching ? (
-        <div class="lds-heart">
+        <div className="lds-heart">
           <div></div>
         </div>
       ) : (
@@ -53,7 +69,10 @@ const ProductPage = (match) => {
           <img src={data.img_url} alt="" className={s.productPage__img} />
           <div className={s.productPage__info}>
             <h4>Information</h4>
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              className={s.productPage__tableContainer}
+            >
               <Table className={classes.table} aria-label="caption table">
                 <TableHead>
                   <TableRow>
@@ -73,6 +92,9 @@ const ProductPage = (match) => {
                 </TableBody>
               </Table>
             </TableContainer>
+            <Button variant="contained" color="primary" onClick={addToBasket}>
+              Add to cart
+            </Button>
           </div>
         </div>
       )}
@@ -80,4 +102,8 @@ const ProductPage = (match) => {
   );
 };
 
-export default ProductPage;
+const mapDispatchToProps = {
+  addProduct,
+};
+
+export default connect(null, mapDispatchToProps)(ProductPage);

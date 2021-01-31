@@ -10,4 +10,7 @@ export const API = {
   getProducts() {
     return instance.get('/api/products/');
   },
+  purchase(data) {
+    return instance.post('/api/purchase/', data);
+  },
 };

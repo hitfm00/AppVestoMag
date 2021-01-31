@@ -16,7 +16,7 @@ const BasketItem = (props) => {
           </div>
           <div className={s.basket__info}>
             <span>Price:</span>
-            <span>${price}</span>
+            <span className="totalPrice__text">${price}</span>
           </div>
         </div>
       </Grid>

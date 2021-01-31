@@ -30,29 +30,42 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(19),
   },
 }));
+
 const ProductItem = (props) => {
-  const { item, name, price, img, id } = props;
+  const { item, name, price, img, id, category, addProduct } = props;
   const classes = useStyles();
 
   const addToBasket = () => {
-    props.addProduct(item);
+    addProduct(item);
     toast.success(`${name} product added to basket.`);
   };
 
   return (
     <div className={s.product__item}>
       <img src={img} alt="" className={s.product__img} />
-      <span className={s.product__title}>{name}</span>
-      <span className={s.product__price}>{price}</span>
+      <div className={s.product__infoBlock}>
+        <div className={s.product__infoText}>
+          <span>Title:</span>
+          <span>{name}</span>
+        </div>
+        <div className={s.product__infoText}>
+          <span>Category:</span>
+          <span>{category}</span>
+        </div>
+        <div className={s.product__infoText}>
+          <span>Price:</span>
+          <span className="totalPrice__text">${price}</span>
+        </div>
+      </div>
       <div className={s.product__buttons}>
         <NavLink to={`/product/${id}`}>
-          <LightTooltip TransitionComponent={Zoom} arrow title="View">
+          <LightTooltip arrow title="View">
             <IconButton size="medium" aria-label="view">
               <VisibilityOutlinedIcon className={classes.icon} />
             </IconButton>
           </LightTooltip>
         </NavLink>
-        <LightTooltip TransitionComponent={Zoom} arrow title="Add to basket">
+        <LightTooltip arrow title="Add to basket">
           <IconButton onClick={addToBasket} size="medium" aria-label="add">
             <ShoppingBasketOutlinedIcon className={classes.icon} />
           </IconButton>

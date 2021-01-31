@@ -9,6 +9,8 @@ import s from './style.module.sass';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { green, purple } from '@material-ui/core/colors';
 import Decimal from 'decimal.js';
+import { NavLink } from 'react-router-dom';
+import TotalPrice from '../../TotalPrice';
 
 const useStyles = makeStyles((theme) => ({
   width: {
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const BasketBuy = (props) => {
-  const { data } = props;
+  const { data, setToggle } = props;
   const [summaryPrice, setSummaryPrice] = useState();
   const classes = useStyles();
 
@@ -33,18 +35,18 @@ const BasketBuy = (props) => {
 
   return (
     <div className={s.basket__buyButtonBlock}>
-      <div className={s.basket__summary}>
-        <span>Total:</span>
-        <span className={s.basket__totalPrice}>${summaryPrice}</span>
-      </div>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<ShoppingBasketIcon />}
-        className={classes.width}
-      >
-        Buy
-      </Button>
+      <TotalPrice data={data} />
+      <NavLink to="/cart/">
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<ShoppingBasketIcon />}
+          fullWidth
+          onClick={() => setToggle(false)}
+        >
+          Buy
+        </Button>
+      </NavLink>
     </div>
   );
 };
